@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:18:04 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/01 16:57:44 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/01 17:03:00 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,10 @@ int		print_int(int d, t_format *fmt)
 			ft_putchar(fmt->sign);
 		put_some_n(0, '0', wsps);
 		ft_putnbr(d);
-		ws = fmt->w_fild - fmt->prec;
-		if (fmt->sign)
-			ws--;
-		if (fmt->add_0)
-			put_some_n(0, '0', ws);
+		if (!fmt->add_0)
+			print_wsps(fmt->w_fild, fmt->prec, 1, ' ');
 		else
-			put_some_n(0, ' ', ws);
+			print_wsps(fmt->w_fild, fmt->prec, 1, '0');
 	}
 	else
 		print_rallign(d, fmt, wsps);
