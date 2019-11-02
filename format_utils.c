@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 14:08:42 by snechaev          #+#    #+#             */
-/*   Updated: 2019/10/31 16:24:32 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/01 15:33:18 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_format *init()
     fmt->w_fild = 0;
     fmt->prec = 0;
     fmt->conv = '0';
+    fmt->sign = '\0';
     
     return (fmt);
 }

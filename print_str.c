@@ -6,35 +6,83 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 16:56:02 by snechaev          #+#    #+#             */
-/*   Updated: 2019/10/31 17:46:57 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/01 16:23:48 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int print_str(va_list *va_l, t_format *fmt)
+void put_some_n(char *str, char c, int n)
 {
-	void	*c;
+	int i = 0;
+
+	if (n < 0)
+		return ;
+	if (c)
+	{
+		while(i < n)
+		{
+			write (1, &c, 1);
+			i++;
+		}
+	}
+	else
+	{
+		while(i < n)
+		{
+			write(1, &str[i], 1);
+			i++;
+		}
+	}
+}
+
+int print_str(char *s, t_format *fmt)
+{
 	int     len;
 	int		wsps;
 	int		i;
 
 	i = 0;
-	c = (char *)va_arg(*va_l, void *);
-	len = fmt->prec;
-	wsps = fmt->w_fild - ft_strlen(c);
+	len = ft_strlen(s);
+	if (len > fmt->w_fild)
+		fmt->w_fild = len;
+	if (!fmt->prec)
+		fmt->prec = len;
+	wsps = fmt->w_fild - fmt->prec;
 	if (fmt->minus)
 	{
-		while(i < len)
-		{
-			write(1, &c[i], 1);
-			i++;
-		}
-		while(wsps > 0)
-		{
-			write(1, " ", 1);
-			wsps--;
-		}
+		put_some_n(s, 0, fmt->prec);
+		put_some_n(s, ' ', wsps);
+	}
+	else
+	{
+		put_some_n(s, ' ', wsps);
+		put_some_n(s, 0, fmt->prec);
 	}
 	return (fmt->w_fild);
 }
+
+int print_char(char c, t_format *fmt)
+{
+	int		wsps;
+	int		i;
+
+	i = 0;
+	if (!fmt->prec)
+		fmt->prec = 1;
+	wsps = fmt->w_fild - fmt->prec;
+	if (fmt->minus)
+	{
+		put_some_n(0, c, fmt->prec);
+		put_some_n(0, ' ', wsps);
+	}
+	else
+	{
+		put_some_n(0, ' ', wsps);
+		put_some_n(0, c, fmt->prec);
+	}
+	return (fmt->w_fild);
+}
+
+
+

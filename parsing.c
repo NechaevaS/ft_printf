@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 15:56:38 by snechaev          #+#    #+#             */
-/*   Updated: 2019/10/31 17:23:51 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/01 11:05:09 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	flags_parse(const char **arg, t_format *fmt)
 	{
 		if (**arg == '-')
 			fmt->minus = 1;
-		if (**arg == '+')
+		else if (**arg == '+')
 			fmt->plus = 1;
-		if (**arg == '#')
+		else if (**arg == '#')
 			fmt->alt_fmt = 1;
-		if (**arg == '0')
+		else if (**arg == '0')
 			fmt->add_0 = 1;
 		else
 			break ;
@@ -48,7 +48,7 @@ void	prec_parse(const char **arg, t_format *fmt)
 		(*arg)++;
 		while (ft_isdigit(**arg))
 		{
-			fmt->w_fild = fmt->w_fild * 10 + ((**arg) - '0');
+			fmt->prec = fmt->prec * 10 + ((**arg) - '0');
 			(*arg)++;
 		}
 	}
@@ -68,7 +68,7 @@ void	mod_l_parse(const char **arg, t_format *fmt)
 		fmt->len = L;
 }
 
-int	arg_parse(va_list *va_l, const char **arg, t_format *fmt)
+int	arg_parse(const char **arg, t_format *fmt)
 {
 	int			len;
 
@@ -79,6 +79,6 @@ int	arg_parse(va_list *va_l, const char **arg, t_format *fmt)
 	prec_parse(arg, fmt);
 	mod_l_parse(arg, fmt);
 	fmt->conv = **arg;
-	len = print_args(va_l, fmt);
+
 	return (len);
 }

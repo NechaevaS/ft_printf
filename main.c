@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 10:04:32 by snechaev          #+#    #+#             */
-/*   Updated: 2019/10/31 17:37:56 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/01 16:56:42 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
   
   
 int main() 
-{ 
-   ft_printf("my %-10.4s\n", "hello");
-    printf("orig %-10.5s\n", "hello"); 
+{
+    ft_printf("my %08d\n", -15);
+    printf("or %08d\n", -15); 
     return 0; 
 }

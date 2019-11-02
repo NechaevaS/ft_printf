@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:25:43 by snechaev          #+#    #+#             */
-/*   Updated: 2019/10/31 17:32:34 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/01 14:24:05 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,17 @@
 
 int	print_args(va_list *va_l, t_format *fmt)
 {
+	int d;
+	char c;
+	char *s;
+
 	if (fmt->conv != '0')
 	{
-		// if (fmt->conv == 'd' || fmt->conv == 'i')
-		// 	return (print_int(va_l, fmt));
+		switch (fmt->conv)
+		{
+			case 'd':
+			d = va_arg(*va_l, int);
+			return(print_int(d, fmt));
 		// if (fmt->conv == 'c')
 		// 	return (print_char(va_l, fmt));
 		// if (fmt->conv == 'o')
@@ -28,10 +35,18 @@ int	print_args(va_list *va_l, t_format *fmt)
 		// 	return (print_hex(va_l, fmt));
 		// if (fmt->conv == 'p')
 		// 	return (print_ptr(va_l, fmt));
-		if (fmt->conv == 's')
-			return (print_str(va_l, fmt));
-		// if (fmt->conv == 'f')
-		// 	return (print_double(va_l, fmt));
+		case 's':
+			s = va_arg(*va_l, char *);
+			return(print_str(s, fmt));
+		case 'c':
+			c = (char)va_arg(*va_l, int);
+			return(print_char(c, fmt));
+		case '%':
+			return(print_char('%', fmt));
+		case 'p':
+			d = va_arg(*va_l, int);
+			return(print_int(d, fmt));
+		}
 	}
 	return (-1);
 }
@@ -42,6 +57,7 @@ int	ft_printf(const char *format, ...)
 	int			len;
 	int			all_len;
 	t_format	*fmt;
+
 
 	all_len = 0;
 	fmt = init();
@@ -56,7 +72,10 @@ int	ft_printf(const char *format, ...)
 		}
 		else
 		{
-			len = arg_parse(&va_l, &format, fmt);
+			len = arg_parse(&format, fmt);
+
+			len = print_args(&va_l, fmt);
+			(format)++;
 			all_len = all_len + len;
 		}
 	}
