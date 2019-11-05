@@ -6,7 +6,7 @@
 #    By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/20 11:01:28 by snechaev          #+#    #+#              #
-#    Updated: 2019/09/24 14:48:48 by snechaev         ###   ########.fr        #
+#    Updated: 2019/11/04 16:21:36 by snechaev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ OBJS = ft_memset.o\
 		ft_strcmp.o\
 		ft_strncmp.o\
 		ft_atoi.o\
+		ft_atoi_base.o\
 		ft_isalpha.o\
 		ft_isdigit.o\
 		ft_isalnum.o\
@@ -55,6 +56,7 @@ OBJS = ft_memset.o\
 		ft_strtrim.o\
 		ft_strsplit.o\
 		ft_itoa.o\
+		ft_itoa_ull.o\
 		ft_putchar.o\
 		ft_putstr.o\
 		ft_putendl.o\

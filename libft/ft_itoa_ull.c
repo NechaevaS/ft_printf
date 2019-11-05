@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_itoa_ull.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/31 10:04:32 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/04 17:57:49 by snechaev         ###   ########.fr       */
+/*   Created: 2019/11/04 16:02:07 by snechaev          #+#    #+#             */
+/*   Updated: 2019/11/04 16:44:20 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include<stdio.h> 
-  
-  
-int main() 
+#include "libft.h"
+
+static char	*ft_fill(char *s, unsigned long long int n)
 {
- //   unsigned long long int n = 18446744073709551615ull;
-    ft_printf("my %d\n", -15);
-    printf("or %d\n", -15); 
-    // ft_printf("my %8.3f\n", 1.123456789);
-    // printf("or %8.3f\n", 1.123456789);
-    // unsigned long long int n = 18446744073709551615ull;
-    // ft_putstr(ft_itoaull(n)); 
-    return 0; 
+	if (n > 9)
+		s = ft_fill(s, n / 10);
+	*s = (n % 10) + '0';
+	return (s + 1);
+}
+
+char		*ft_itoaull(unsigned long long int n)
+{
+	char	*str;
+
+	str = ft_strnew(21);
+	if (!str)
+		return (NULL);
+	ft_fill(str, n);
+	return (str);
 }

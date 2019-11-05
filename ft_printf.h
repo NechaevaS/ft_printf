@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 10:05:37 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/01 16:18:02 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/04 18:03:58 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct
 	int         prec;
 	enum mod_l {hh, h, l, ll, L} len;
 	char         conv;
-	char		sign;
 }               t_format;
 
 int				ft_printf(const char *format, ...);
@@ -46,7 +45,7 @@ void			put_some_n(char *str, char c, int n);
 // int             print_double(va_list *va_l, t_format *fmt);
 int             print_str(char *s, t_format *fmt);
 int 			print_char(char c, t_format *fmt);
-int 			print_int(int d, t_format *fmt);
+int				print_int(int d, t_format *fmt);
 
 
 #endif
