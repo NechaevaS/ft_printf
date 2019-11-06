@@ -45,7 +45,9 @@ void			put_some_n(char *str, char c, int n);
 // int             print_double(va_list *va_l, t_format *fmt);
 int             print_str(char *s, t_format *fmt);
 int 			print_char(char c, t_format *fmt);
-int				print_int(int d, t_format *fmt);
+int				print_int(va_list *va_l, t_format *fmt);
+int				print_uox(va_list *va_l, t_format *fmt);
+int				put_str_fmt(int d, char *str, t_format *fmt);
 
 
 #endif

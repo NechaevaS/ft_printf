@@ -40,9 +40,7 @@ int print_str(char *s, t_format *fmt)
 {
 	int     len;
 	int		wsps;
-	int		i;
 
-	i = 0;
 	len = ft_strlen(s);
 	if (len > fmt->w_fild)
 		fmt->w_fild = len;
@@ -65,9 +63,7 @@ int print_str(char *s, t_format *fmt)
 int print_char(char c, t_format *fmt)
 {
 	int		wsps;
-	int		i;
 
-	i = 0;
 	if (!fmt->prec)
 		fmt->prec = 1;
 	wsps = fmt->w_fild - fmt->prec;

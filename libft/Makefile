@@ -78,8 +78,9 @@ OBJS = ft_memset.o\
 		ft_skip.o\
 		get_next_line.o\
 		ft_abs.o\
+		ft_ulltoa_base.o
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 all : $(NAME)
 

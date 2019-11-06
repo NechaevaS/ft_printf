@@ -12,33 +12,9 @@
 
 #include "ft_printf.h"
 
-int	intlong_depend(va_list *va_l, t_format *fmt)
-{
-	long long int d;
-
-	// switch (fmt->len)
-	// {
-// 		case h:
-// 			d = (short)va_arg(*va_l, long long int);
-// 			return(print_short_int(d, fmt));
-// 		case hh:
-// 			d = (signed char)va_arg(*va_l, long long int);
-// 			return(print_sign_char(d, fmt));
-// 		case l:
-// 			d = (long)va_arg(*va_l, long long int);
-// 			return(print_long(d, fmt));
-// 		case ll:
-// 			d = (long long)va_arg(*va_l, long long int);
-// 			return(print_long_long(d, fmt));
-// 		default:
-			d = (int)va_arg(*va_l, int);
-			return(print_int(d, fmt));
-
-}
 
 int	print_args(va_list *va_l, t_format *fmt)
 {
-//	int		d;
 	char	c;
 	char	*s;
 	// double	f;
@@ -46,10 +22,11 @@ int	print_args(va_list *va_l, t_format *fmt)
 
 	if (fmt->conv != '0')
 	{
-		if (fmt->conv == 'd' || fmt->conv == 'd')
-			return (intlong_depend(va_l, fmt));
-		// if (fmt->conv == 'u' || fmt->conv == 'o' || fmt->conv == 'x' || fmt->conv == 'X')
-		// 	return (uintlong_depend(va_l, fmt));
+		if (fmt->conv == 'd' || fmt->conv == 'i')
+			return (print_int(va_l, fmt));
+		if (fmt->conv == 'u' || fmt->conv == 'o' || fmt->conv == 'x'
+			|| fmt->conv == 'X')
+			return (print_uox(va_l, fmt));
 		if (fmt->conv == 'c')
 		{
 			c = (char)va_arg(*va_l, int);
@@ -97,7 +74,7 @@ int	ft_printf(const char *format, ...)
 		}
 		else
 		{
-			len = arg_parse(&format, fmt);
+			arg_parse(&format, fmt);
 
 			len = print_args(&va_l, fmt);
 			(format)++;

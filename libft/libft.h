@@ -94,5 +94,6 @@ int					get_next_line(const int fd, char **line);
 int					ft_atoi_base(const char *str, int str_base);
 double				ft_abs(double x);
 t_list				*ft_sort_list(t_list *lst, int (*cmp)(void *, void *));
+char				*ft_ulltoa_base(char *s, unsigned long long n, unsigned base);
 
 #endif

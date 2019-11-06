@@ -12,10 +12,11 @@
 
 NAME = libftprintf.a
 
-OBJS =ft_printf.o\
+OBJS = ft_printf.o\
 			parsing.o\
 			format_utils.o\
 			print_str.o\
+			printing.o\
 			print_ints1.o\
 			libft/libft.a\
 

@@ -56,6 +56,7 @@ void	prec_parse(const char **arg, t_format *fmt)
 
 void	mod_l_parse(const char **arg, t_format *fmt)
 {
+
 	if (**arg == 'h' && *(*arg + 1) == 'h')
 		fmt->len = hh;
 	else if (**arg == 'h')
@@ -66,6 +67,10 @@ void	mod_l_parse(const char **arg, t_format *fmt)
 		fmt->len = l;
 	if (**arg == 'L')
 		fmt->len = L;
+	if (fmt->len == hh || fmt->len == ll)
+		(*arg) += 2;
+	else if (fmt->len == l || fmt->len == h || fmt->len == L)
+		(*arg) += 1;
 }
 
 int	arg_parse(const char **arg, t_format *fmt)
