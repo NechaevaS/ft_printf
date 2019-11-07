@@ -6,30 +6,12 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 10:12:35 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/04 18:13:30 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/06 17:00:54 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
-
-int		add_wsps(int size, char str[size], t_format *fmt, int neg)
-{
-	int		ws;
-	int		n;
-    int     sign;
-
-	sign = 0;
-	if (neg || fmt->plus)
-		sign = 1;
-	ws = fmt->w_fild - fmt->prec - sign;
-	if (fmt->add_0)
-		n = '0';
-	else
-		n = ' ';
-	ft_memset(str, n, ws);
-		return (ws);
-}
 
 int		add_sign(int size, char str[size], t_format *fmt, int neg)
 {
@@ -46,63 +28,74 @@ int		add_sign(int size, char str[size], t_format *fmt, int neg)
 	return (0);
 }
 
-char	*create_prec(char *str, t_format *fmt)
+int		add_prefix(int size, char str[size], t_format *fmt)
+{
+	if (fmt->conv == 'p' || fmt->flags == '#')
+	{
+		*str = '0';
+		if (fmt->conv == 'X')
+			*(str + 1) = 'X';
+		if (fmt->conv == 'x' || fmt->conv == 'p')
+			*(str + 1) = 'x';
+		return (2);
+	}
+	if (fmt->conv == 'o')
+	{
+		*str = '0';
+		return (1);
+	}
+	return (0);
+}
+
+void	fill_prec(char *str, t_format *fmt, char prec[fmt->prec])
 {
 	int     len;
-	char    *prec;
 	int		i;
 
+	i = 0;
 	len = ft_strlen(str);
+	if (fmt->conv == 's' && fmt->prec)
+		len = fmt->prec;
 	if (fmt->prec)
 		fmt->add_0 = 0;
 	if (len > fmt->prec)
 		fmt->prec = len;
-	prec = (char *)malloc(sizeof(char) * fmt->prec + 1);
 	ft_bzero(prec, fmt->prec);
 	ft_memset(prec, '0', fmt->prec);
 	i = fmt->prec - len;
 	ft_memcpy(&prec[i], str, len);
-	if (fmt->prec + 1 > fmt->w_fild)
-		fmt->w_fild = fmt->prec + 1;
-	return (prec);
+	if (fmt->prec > fmt->w_fild)
+		fmt->w_fild = fmt->prec;
 }
 
-int		put_str_fmt(int neg, char *str, t_format *fmt)
+int		put_result(int neg, char *str, t_format *fmt)
 {
-	int     size;
-	char    *prec;
-	int		wsps;
 	int 	i;
-
-	prec = create_prec(str, fmt);
-	size = fmt->w_fild + 1;
-	char	all_f[size];
-	ft_bzero(all_f, size);
+	char	prec[fmt->prec + 1];
+	char	all_f[fmt->w_fild + 1];
+	
+	fill_prec(str, fmt, prec);
+	all_f[fmt->w_fild] = '\0';
+	ft_memset(all_f, fmt->fill, fmt->w_fild);
 	i = 0;
 	if (fmt->minus || fmt->add_0)
 	{
-		if (add_sign(size, all_f, fmt, neg))
+		if (add_sign(fmt->w_fild, all_f, fmt, neg))
 			i++;
 		if (fmt->add_0)
 		{
-			wsps = add_wsps(size, &all_f[i], fmt, neg);
-			i = i + wsps;
+			i = fmt->w_fild - fmt->prec;
 			ft_memcpy(&all_f[i], prec , fmt->prec);
 		}
 		else
-		{
 			ft_memcpy(&all_f[i], prec , fmt->prec);
-			i = i + fmt->prec;
-			wsps = add_wsps(size, &all_f[i], fmt, neg);
-		}
 	}
 	else
 	{
-		wsps = add_wsps(size, &all_f[i], fmt, neg);
-		i = i + wsps;
-		if (add_sign(size, &all_f[i], fmt, neg))
-			i++;
-		ft_memcpy(&all_f[i], prec , fmt->prec);
+		i = fmt->w_fild - fmt->prec;
+		i = i + add_sign(fmt->w_fild, &all_f[i], fmt, neg);
+		i = i + add_prefix(&all_f[i + 1], prec , fmt->prec);
+		ft_memcpy(&all_f[i + 3], prec , fmt->prec);
 	}
 	ft_putstr(all_f);
 	return (ft_strlen(all_f));

@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 10:05:37 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/04 18:03:58 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/06 15:12:05 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,21 @@ typedef struct
 	int         prec;
 	enum mod_l {hh, h, l, ll, L} len;
 	char         conv;
+	char		fill;
 }               t_format;
 
 int				ft_printf(const char *format, ...);
 t_format        *init();
 int             arg_parse(const char **arg, t_format *fmt);
 int             print_args(va_list *va_l, t_format *fmt);
-void			put_some_n(char *str, char c, int n);
-// int             print_int(va_list *va_l, t_format *fmt);
-// int             print_char(va_list *va_l, t_format *fmt);
-// int             print_okt(va_list *va_l, t_format *fmt);
-// int             print_dec(va_list *va_l, t_format *fmt);
-// int             print_hex(va_list *va_l, t_format *fmt);
-// int             print_ptr(va_list *va_l, t_format *fmt);
-// int             print_double(va_list *va_l, t_format *fmt);
 int             print_str(char *s, t_format *fmt);
 int 			print_char(char c, t_format *fmt);
+int				print_ptr(void *p, t_format *fmt);
 int				print_int(va_list *va_l, t_format *fmt);
 int				print_uox(va_list *va_l, t_format *fmt);
-int				put_str_fmt(int d, char *str, t_format *fmt);
+int				print_ull(unsigned long long d, t_format *fmt);
+int				print_ll(long long d, t_format *fmt);
+int				put_result(int neg, char *str, t_format *fmt);
 
 
 #endif

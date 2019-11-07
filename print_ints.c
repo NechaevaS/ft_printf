@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_ints1.c                                      :+:      :+:    :+:   */
+/*   print_ints.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 10:12:35 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/04 18:13:30 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/06 15:18:15 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int		print_ull(unsigned long long d, t_format *fmt)
 	ft_memset(str, 0, 21);
 	if (fmt->conv == 'o')
 		base = 8;
-	if (fmt->conv == 'x' || fmt->conv == 'X')
+	if (fmt->conv == 'x' || fmt->conv == 'X' || fmt->conv == 'p')
 		base = 16;
 	ft_ulltoa_base(str, d, base);
-	return (put_str_fmt(0, str, fmt));
+	return (put_result(0, str, fmt));
 }
 
 int		print_ll(long long d, t_format *fmt)
@@ -36,7 +36,7 @@ int		print_ll(long long d, t_format *fmt)
 		ft_ulltoa_base(str, (unsigned long long)d, 10);
 	else
 		ft_ulltoa_base(str, (unsigned long long)(-d), 10);
-	return (put_str_fmt(d<0, str, fmt));	
+	return (put_result(d<0, str, fmt));	
 }
 
 int	print_uox(va_list *va_l, t_format *fmt)

@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:25:43 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/04 18:02:21 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/06 15:14:05 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	print_args(va_list *va_l, t_format *fmt)
 	char	c;
 	char	*s;
 	// double	f;
-	// void	*p;
+	void	*p;
+//	int		d;
 
 	if (fmt->conv != '0')
 	{
@@ -29,7 +30,7 @@ int	print_args(va_list *va_l, t_format *fmt)
 			return (print_uox(va_l, fmt));
 		if (fmt->conv == 'c')
 		{
-			c = (char)va_arg(*va_l, int);
+			c = va_arg(*va_l, int);
 			return (print_char(c, fmt));
 		}
 		if (fmt->conv == 's')
@@ -44,11 +45,11 @@ int	print_args(va_list *va_l, t_format *fmt)
 		// 	f = va_arg(*va_l, double);
 		// 	return (print_double(f, fmt));
 		// }
-		// if (fmt->conv == 'p')
-		// {
-		// 	p = va_arg(*va_l, void *);
-		// 	return (print_ptr(p, fmt));
-		// }
+		if (fmt->conv == 'p')
+		{
+			p = va_arg(*va_l, void *);
+			return (print_ptr(p, fmt));
+		}
 	}
 	return (-1);
 }
@@ -75,7 +76,6 @@ int	ft_printf(const char *format, ...)
 		else
 		{
 			arg_parse(&format, fmt);
-
 			len = print_args(&va_l, fmt);
 			(format)++;
 			all_len = all_len + len;

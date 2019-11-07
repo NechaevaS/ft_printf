@@ -6,7 +6,7 @@
 #    By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/07 14:47:44 by snechaev          #+#    #+#              #
-#    Updated: 2019/11/04 12:33:47 by snechaev         ###   ########.fr        #
+#    Updated: 2019/11/06 13:43:19 by snechaev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,9 @@ NAME = libftprintf.a
 OBJS = ft_printf.o\
 			parsing.o\
 			format_utils.o\
-			print_str.o\
+			print_sc.o\
 			printing.o\
-			print_ints1.o\
+			print_ints.o\
 			libft/libft.a\
 
 
