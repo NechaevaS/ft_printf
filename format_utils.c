@@ -6,17 +6,36 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 14:08:42 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/04 14:48:12 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/07 16:55:04 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_format *init()
+int		get_size(int neg, t_format *fmt, t_print *p)
 {
-    t_format *fmt;
+	int max;
+	int len1;
 
-    fmt = (t_format *)malloc(sizeof(t_format));
+    len1 = p->size_prec;
+    if (neg || fmt->plus)
+	    len1++;
+    if (p->pref)
+    {
+        if (fmt->conv == 'x' || fmt->conv == 'x')
+            len1 = len1 + 2;
+        else
+            len1 = len1 + 1;
+    }
+	if (len1 > fmt->w_fild)
+		max = len1;
+	else
+		max = fmt->w_fild;
+	return (max);
+}
+
+void init_fmt(t_format *fmt)
+{
     fmt->alt_fmt = 0;
     fmt->plus = 0;
     fmt->minus = 0;
@@ -24,6 +43,33 @@ t_format *init()
     fmt->w_fild = 0;
     fmt->prec = 0;
     fmt->conv = '0';
-    
-    return (fmt);
+}
+
+void init_p(int neg, char *str, t_format *fmt, t_print *p)
+{
+    int     len;
+
+    p->str = str;
+	len = ft_strlen(p->str);
+	if (fmt->conv == 's' && fmt->prec)
+		p->size_prec = fmt->prec;
+	else if (fmt->conv != 's' && len > fmt->prec)
+		p->size_prec = len;
+    else
+        p->size_prec = fmt->prec;
+    if (fmt->add_0)
+        p->fill = '0';
+    else
+        p->fill = ' ';
+   
+    if (fmt->conv == 'p' || fmt->alt_fmt)
+         p->pref = 1;
+    else
+        p->pref = 0;
+	p->size_all = get_size(neg, fmt, p);
+    if (neg)
+        p->neg = 1;
+    else
+	    p->neg = 0;
+
 }

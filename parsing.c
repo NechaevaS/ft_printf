@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 15:56:38 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/06 12:03:50 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/07 14:37:11 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ void	flags_parse(const char **arg, t_format *fmt)
 			break ;
 		(*arg)++;
 	}
-	if (fmt->add_0 && fmt->minus)
-		fmt->add_0 = 0;
 }
 
 void	wfild_parse(const char **arg, t_format *fmt)
@@ -52,8 +50,6 @@ void	prec_parse(const char **arg, t_format *fmt)
 			(*arg)++;
 		}
 	}
-	if (fmt->prec)
-		fmt->add_0 = 0;
 }
 
 void	mod_l_parse(const char **arg, t_format *fmt)
@@ -86,9 +82,5 @@ int	arg_parse(const char **arg, t_format *fmt)
 	prec_parse(arg, fmt);
 	mod_l_parse(arg, fmt);
 	fmt->conv = **arg;
-	if (fmt->add_0)
-		fmt->fill = '0';
-	else
-		fmt->fill = ' ';
 	return (len);
 }

@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 10:05:37 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/06 15:12:05 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/07 14:41:49 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 
 typedef struct
 {
-	char        flags;
 	int         alt_fmt;
 	int         plus;
 	int         minus;
@@ -29,11 +28,21 @@ typedef struct
 	int         prec;
 	enum mod_l {hh, h, l, ll, L} len;
 	char         conv;
-	char		fill;
 }               t_format;
 
+typedef struct
+{
+	char        *str;
+	char		fill;
+	int			pref;
+	int         size_all;
+	int         size_prec;
+	int         neg;
+}               t_print;
+
 int				ft_printf(const char *format, ...);
-t_format        *init();
+void			init_fmt(t_format *fmt);
+void 			init_p(int neg, char *str, t_format *fmt, t_print *p);
 int             arg_parse(const char **arg, t_format *fmt);
 int             print_args(va_list *va_l, t_format *fmt);
 int             print_str(char *s, t_format *fmt);
