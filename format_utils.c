@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 14:08:42 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/07 16:55:04 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/08 16:53:24 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ void init_p(int neg, char *str, t_format *fmt, t_print *p)
 	len = ft_strlen(p->str);
 	if (fmt->conv == 's' && fmt->prec)
 		p->size_prec = fmt->prec;
-	else if (fmt->conv != 's' && len > fmt->prec)
+	else if (len > fmt->prec)
 		p->size_prec = len;
     else
         p->size_prec = fmt->prec;
     if (fmt->add_0)
-        p->fill = '0';
+        p->fill_a = '0';
     else
-        p->fill = ' ';
+        p->fill_a = ' ';
    
     if (fmt->conv == 'p' || fmt->alt_fmt)
          p->pref = 1;
@@ -71,5 +71,8 @@ void init_p(int neg, char *str, t_format *fmt, t_print *p)
         p->neg = 1;
     else
 	    p->neg = 0;
-
+    if (fmt->conv == 's')
+        p->fill_p = ' ';
+    else
+       p->fill_p = '0'; 
 }

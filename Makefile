@@ -6,7 +6,7 @@
 #    By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/07 14:47:44 by snechaev          #+#    #+#              #
-#    Updated: 2019/11/06 13:43:19 by snechaev         ###   ########.fr        #
+#    Updated: 2019/11/08 16:28:01 by snechaev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ $(OBJS) : ft_printf.h
 
 lib:
 	@make -C libft
+	@cp libft/libft.a ./$(NAME)
 
 clean :
 	rm -f $(OBJS)

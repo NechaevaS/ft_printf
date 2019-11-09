@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 10:05:37 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/07 14:41:49 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/08 16:45:23 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ typedef struct
 typedef struct
 {
 	char        *str;
-	char		fill;
+	char		fill_a;
+	char		fill_p;
 	int			pref;
 	int         size_all;
 	int         size_prec;

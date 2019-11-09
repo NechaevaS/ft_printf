@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:25:43 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/07 14:36:42 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:01:23 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	modify_fmt(t_format *fmt)
 {
 	if (fmt->conv != 'f' && fmt->prec == -1)
 		fmt->prec = 0;
-	if ((fmt->add_0 && fmt->minus) || fmt->prec > 0)
+	if ((fmt->add_0 && fmt->minus) || fmt->prec > 0 || fmt->conv == 's')
 		fmt->add_0 = 0;
 	if (fmt->prec > fmt->w_fild)
 		fmt->w_fild = fmt->prec;
@@ -88,15 +88,15 @@ int	ft_printf(const char *format, ...)
 
 
 	all_len = 0;
-	init_fmt(&fmt);
 	va_start(va_l, format);
 	while (*format)
 	{
+		init_fmt(&fmt);
 		if (*format != '%')
 		{
 			ft_putchar(*format);
-			format++;
 			all_len++;
+			format++;
 		}
 		else
 		{

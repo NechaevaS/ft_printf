@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 10:12:35 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/07 17:16:54 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/08 16:47:29 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,22 @@ void	fill_prec(t_print *p, t_format *fmt, char prec[fmt->prec + 1])
 	i = 0;
 	len = ft_strlen(p->str);
 	ft_bzero(prec, p->size_prec + 1);
-	ft_memset(prec, '0', p->size_prec);
+	ft_memset(prec, p->fill_p, p->size_prec);
+	if (fmt->conv == 'X')
+	{
+		while(p->str[i])
+		{
+			p->str[i] = p->str[i] - 32;
+			i++;
+		}
+	}
 	if (p->size_prec > len)
 	{
 		i = p->size_prec - len;
 		ft_memcpy(&prec[i], p->str, len);
 	}
 	else
-		ft_memcpy(prec, p->str, p->size_prec);
+		ft_memcpy(&prec[0], p->str, p->size_prec);
 }
 
 int		put_result(int neg, char *str, t_format *fmt)
@@ -75,7 +83,7 @@ int		put_result(int neg, char *str, t_format *fmt)
 	fill_prec(&p, fmt, prec);
 	char	all_f[p.size_all + 1];
 	all_f[p.size_all] = '\0';
-	ft_memset(all_f, p.fill, p.size_all);
+	ft_memset(all_f, p.fill_a, p.size_all);
 	i = 0;
 	if (fmt->minus)
 	{

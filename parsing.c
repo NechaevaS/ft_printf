@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 15:56:38 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/07 14:37:11 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/08 14:33:29 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	flags_parse(const char **arg, t_format *fmt)
 
 void	wfild_parse(const char **arg, t_format *fmt)
 {
-	while (ft_isdigit(**arg))
+	while (ft_isdigit(**arg) && (**arg) > 0)
 	{
 		fmt->w_fild = fmt->w_fild * 10 + ((**arg) - '0');
 		(*arg)++;
@@ -77,6 +77,8 @@ int	arg_parse(const char **arg, t_format *fmt)
 
 	len = 0;
 	(*arg)++;
+	while (**arg == ' ')
+		(*arg)++;
 	flags_parse(arg, fmt);
 	wfild_parse(arg, fmt);
 	prec_parse(arg, fmt);
