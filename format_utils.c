@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 14:08:42 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/08 16:53:24 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/11 16:47:21 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		get_size(int neg, t_format *fmt, t_print *p)
 	    len1++;
     if (p->pref)
     {
-        if (fmt->conv == 'x' || fmt->conv == 'x')
+        if (fmt->conv == 'x' || fmt->conv == 'X' || fmt->conv == 'p')
             len1 = len1 + 2;
         else
             len1 = len1 + 1;
@@ -41,6 +41,7 @@ void init_fmt(t_format *fmt)
     fmt->minus = 0;
     fmt->add_0 = 0;
     fmt->w_fild = 0;
+    fmt->is_prec = 0;
     fmt->prec = 0;
     fmt->conv = '0';
 }
@@ -51,9 +52,11 @@ void init_p(int neg, char *str, t_format *fmt, t_print *p)
 
     p->str = str;
 	len = ft_strlen(p->str);
-	if (fmt->conv == 's' && fmt->prec)
-		p->size_prec = fmt->prec;
-	else if (len > fmt->prec)
+    if (!ft_strcmp(str, "0") && fmt->is_prec && !fmt->prec && !fmt->plus)
+        len = 0;
+	if (fmt->conv == 's' && (fmt->prec > len || !fmt->is_prec))
+		p->size_prec = len;
+	else if (fmt->conv != 's' && len > fmt->prec)
 		p->size_prec = len;
     else
         p->size_prec = fmt->prec;

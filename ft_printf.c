@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:25:43 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/08 17:01:23 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/11 16:39:01 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,21 @@
 
 void	modify_fmt(t_format *fmt)
 {
-	if (fmt->conv != 'f' && fmt->prec == -1)
-		fmt->prec = 0;
+	if (fmt->is_prec && !fmt->prec)
+	{
+		if (fmt->conv == 'f')
+			fmt->prec = 6;
+		else
+			fmt->prec = 0;
+	}
 	if ((fmt->add_0 && fmt->minus) || fmt->prec > 0 || fmt->conv == 's')
 		fmt->add_0 = 0;
-	if (fmt->prec > fmt->w_fild)
-		fmt->w_fild = fmt->prec;
 	if (fmt->conv == 'c' || fmt->conv == 's' || fmt->conv == 'p')
-	{
-		if (fmt->conv != 's')
-			fmt->prec = 0;
-		fmt->plus = 0;
 		fmt->add_0 = 0;
-	}
 	// if (fmt->len == L && fmt->conv != 'f')
 	// 	fmt->len == '\0';
-	if ((fmt->conv != 'd' || fmt->conv != 'f') && fmt->plus)
+	if ((fmt->conv != 'd' && fmt->conv != 'f') && fmt->plus)
 		fmt->plus = 0;
-	if (fmt->conv == 'f' && fmt->prec == -1)
-		fmt->prec = 6;
 	if ((fmt->conv != 'f' && fmt->conv != 'x' && fmt->conv != 'X'
 		&& fmt->conv != 'o') && fmt->alt_fmt)
 		fmt->alt_fmt = 0;

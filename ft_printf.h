@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 10:05:37 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/08 16:45:23 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/11 12:40:13 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct
 	int         minus;
 	int         add_0;
 	int         w_fild;
+	int			is_prec;
 	int         prec;
 	enum mod_l {hh, h, l, ll, L} len;
 	char         conv;

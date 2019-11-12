@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 10:12:35 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/08 16:47:29 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/11 15:47:14 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int		put_result(int neg, char *str, t_format *fmt)
 		if (fmt->add_0)
 			add_sign(p.size_all, &all_f[0], fmt, &p);
 		else
-			i = i - (add_sign(p.size_all, &all_f[i], fmt, &p));
+			i = i - (add_sign(p.size_all, &all_f[i - 1], fmt, &p));
 	}
 	ft_putstr(all_f);
 	return (p.size_all);

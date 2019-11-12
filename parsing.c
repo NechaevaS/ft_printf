@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 15:56:38 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/08 14:33:29 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/11 16:13:49 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	flags_parse(const char **arg, t_format *fmt)
 			fmt->plus = 1;
 		else if (**arg == '#')
 			fmt->alt_fmt = 1;
-		else if (**arg == '0')
+		else if (**arg == '0' && fmt->minus != 1 )
 			fmt->add_0 = 1;
 		else
 			break ;
@@ -43,6 +43,7 @@ void	prec_parse(const char **arg, t_format *fmt)
 {
 	if (**arg == '.')
 	{
+		fmt->is_prec = 1;
 		(*arg)++;
 		while (ft_isdigit(**arg))
 		{
@@ -80,9 +81,17 @@ int	arg_parse(const char **arg, t_format *fmt)
 	while (**arg == ' ')
 		(*arg)++;
 	flags_parse(arg, fmt);
+	while (**arg == ' ')
+		(*arg)++;
 	wfild_parse(arg, fmt);
+	while (**arg == ' ')
+		(*arg)++;
 	prec_parse(arg, fmt);
+	while (**arg == ' ')
+		(*arg)++;
 	mod_l_parse(arg, fmt);
+	while (**arg == ' ')
+		(*arg)++;
 	fmt->conv = **arg;
 	return (len);
 }
