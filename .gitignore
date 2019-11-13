@@ -4,6 +4,7 @@ pft/
 .vscode
 ._*
 *.o
+*.a
 
 # Executables
 *.exe
