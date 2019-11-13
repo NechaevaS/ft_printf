@@ -14,31 +14,36 @@
 
 void	modify_fmt(t_format *fmt)
 {
-	if (fmt->is_prec && !fmt->prec)
+	if (fmt->conv == 'f' && !fmt->is_prec)
 	{
-		if (fmt->conv == 'f')
-			fmt->prec = 6;
-		else
-			fmt->prec = 0;
+		fmt->is_prec = 1;
+		fmt->prec = 6;
 	}
-	if ((fmt->add_0 && fmt->minus) || fmt->prec > 0 || fmt->conv == 's')
+	if (fmt->is_prec && !fmt->prec)
+		fmt->prec = 0;
+	if ((fmt->add_0 && fmt->minus) || (fmt->prec > 0 && fmt->conv != 'f') || fmt->conv == 's')
 		fmt->add_0 = 0;
 	if (fmt->conv == 'c' || fmt->conv == 's' || fmt->conv == 'p')
 		fmt->add_0 = 0;
-	// if (fmt->len == L && fmt->conv != 'f')
-	// 	fmt->len == '\0';
+	if (fmt->len == L && fmt->conv != 'f')
+	 	fmt->len = non;
 	if ((fmt->conv != 'd' && fmt->conv != 'f') && fmt->plus)
 		fmt->plus = 0;
 	if ((fmt->conv != 'f' && fmt->conv != 'x' && fmt->conv != 'X'
 		&& fmt->conv != 'o') && fmt->alt_fmt)
 		fmt->alt_fmt = 0;
+	if (fmt->conv == '%')
+	{
+		init_fmt(fmt);
+		fmt->conv = '%';
+	}
 }
 
 int	print_args(va_list *va_l, t_format *fmt)
 {
 	char	c;
 	char	*s;
-	// double	f;
+	long double	f;
 	void	*p;
 //	int		d;
 
@@ -61,11 +66,11 @@ int	print_args(va_list *va_l, t_format *fmt)
 		}
 		if (fmt->conv == '%')
 			return (print_char('%', fmt));
-		// if (fmt->conv == 'f')
-		// {
-		// 	f = va_arg(*va_l, double);
-		// 	return (print_double(f, fmt));
-		// }
+		if (fmt->conv == 'f')
+		{
+			f = va_arg(*va_l,  long double);
+			return (print_double(f, fmt));
+		}
 		if (fmt->conv == 'p')
 		{
 			p = va_arg(*va_l, void *);

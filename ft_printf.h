@@ -27,7 +27,7 @@ typedef struct
 	int         w_fild;
 	int			is_prec;
 	int         prec;
-	enum mod_l {hh, h, l, ll, L} len;
+	enum mod_l {hh, h, l, ll, L, non} len;
 	char         conv;
 }               t_format;
 
@@ -54,6 +54,7 @@ int				print_int(va_list *va_l, t_format *fmt);
 int				print_uox(va_list *va_l, t_format *fmt);
 int				print_ull(unsigned long long d, t_format *fmt);
 int				print_ll(long long d, t_format *fmt);
+int				print_double(long double f, t_format *fmt);
 int				put_result(int neg, char *str, t_format *fmt);
 
 

@@ -72,3 +72,43 @@ int	print_int(va_list *va_l, t_format *fmt)
 		d = va_arg(*va_l, int);
 	return (print_ll(d, fmt));
 }
+
+int	print_double(long double f, t_format *fmt)
+{
+	char		str[21];
+	char		*str1;
+	char		*str2;
+	int			pos;
+	int			n;
+	long double	rem;
+	int			len;
+
+	pos = 0;
+	n = (int)f;
+	rem = f - n;
+	while (n >= 1)
+	{
+		pos++;
+		n = n / 10;
+	}
+	n = (int)f;
+	str1 = ft_itoa(n);
+	len = 0;
+	while(len <= fmt->prec)
+	{
+		rem = rem * 10;
+		len++;
+	}
+	str2 = ft_itoa(rem);
+	if (str2[fmt->prec] >= '5')
+		str2[fmt->prec - 1]++;
+	ft_memset(str, 0, 21);
+	ft_memcpy(str, str1, ft_strlen(str1));
+	if (fmt->is_prec && fmt->prec)
+	{
+		str[pos] = '.';
+		pos++;
+	}
+	ft_memcpy(&str[pos], str2, fmt->prec);
+	return (put_result(0, str, fmt));	
+}

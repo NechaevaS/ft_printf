@@ -24,10 +24,11 @@ int print_str(char *s, t_format *fmt)
 int print_char(char c, t_format *fmt)
 {
 	char	str[2];
+
+	ft_memset(str, 0, 2);
 	if (fmt->prec)
 		fmt->prec = 0;
 	str[0] = c;
-	str[1] = '\0';
 	return (put_result(0, str, fmt));
 }
 

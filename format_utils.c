@@ -43,7 +43,8 @@ void init_fmt(t_format *fmt)
     fmt->w_fild = 0;
     fmt->is_prec = 0;
     fmt->prec = 0;
-    fmt->conv = '0';
+    fmt->conv = 0;
+    fmt->len = non;
 }
 
 void init_p(int neg, char *str, t_format *fmt, t_print *p)
@@ -52,6 +53,8 @@ void init_p(int neg, char *str, t_format *fmt, t_print *p)
 
     p->str = str;
 	len = ft_strlen(p->str);
+    // if (fmt->conv == 'c' && len == 0)
+    //     len = 1;
     if (!ft_strcmp(str, "0") && fmt->is_prec && !fmt->prec && !fmt->plus)
         len = 0;
 	if (fmt->conv == 's' && (fmt->prec > len || !fmt->is_prec))
