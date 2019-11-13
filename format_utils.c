@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 14:08:42 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/13 12:52:10 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/13 14:12:33 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void init_p(int neg, char *str, t_format *fmt, t_print *p)
     else
         p->fill_a = ' ';
    
-    if (fmt->conv == 'p' || (fmt->alt_fmt && *str != '0' && !fmt->prec))
+    if (fmt->conv == 'p' || (fmt->conv == 'o' && fmt->alt_fmt) || (fmt->alt_fmt && *str != '0'))
         p->pref = 1;
     else
         p->pref = 0;
