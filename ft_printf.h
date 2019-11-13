@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 10:05:37 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/11 12:40:13 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/13 11:26:52 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct
 	int         alt_fmt;
 	int         plus;
 	int         minus;
+	int			sps;
 	int         add_0;
 	int         w_fild;
 	int			is_prec;
@@ -40,6 +41,7 @@ typedef struct
 	int         size_all;
 	int         size_prec;
 	int         neg;
+	int			len;
 }               t_print;
 
 int				ft_printf(const char *format, ...);

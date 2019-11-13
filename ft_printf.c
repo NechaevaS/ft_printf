@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:25:43 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/11 16:39:01 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/13 12:52:12 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ void	modify_fmt(t_format *fmt)
 		fmt->is_prec = 1;
 		fmt->prec = 6;
 	}
-	if (fmt->is_prec && !fmt->prec)
+	if (fmt->conv == 'o' && fmt->is_prec && !fmt->prec)
 		fmt->prec = 0;
+	if (fmt->is_prec && fmt->alt_fmt)
+		fmt->alt_fmt = 0;
 	if ((fmt->add_0 && fmt->minus) || (fmt->prec > 0 && fmt->conv != 'f') || fmt->conv == 's')
 		fmt->add_0 = 0;
 	if (fmt->conv == 'c' || fmt->conv == 's' || fmt->conv == 'p')
@@ -32,11 +34,8 @@ void	modify_fmt(t_format *fmt)
 	if ((fmt->conv != 'f' && fmt->conv != 'x' && fmt->conv != 'X'
 		&& fmt->conv != 'o') && fmt->alt_fmt)
 		fmt->alt_fmt = 0;
-	if (fmt->conv == '%')
-	{
-		init_fmt(fmt);
-		fmt->conv = '%';
-	}
+	if ((fmt->sps && fmt->conv != 'd' && fmt->conv != 's') || fmt->plus)
+		fmt->sps = 0;
 }
 
 int	print_args(va_list *va_l, t_format *fmt)
@@ -45,7 +44,6 @@ int	print_args(va_list *va_l, t_format *fmt)
 	char	*s;
 	long double	f;
 	void	*p;
-//	int		d;
 
 	if (fmt->conv != '0')
 	{
@@ -77,7 +75,7 @@ int	print_args(va_list *va_l, t_format *fmt)
 			return (print_ptr(p, fmt));
 		}
 	}
-	return (-1);
+	return (0);
 }
 
 int	ft_printf(const char *format, ...)
@@ -104,8 +102,13 @@ int	ft_printf(const char *format, ...)
 			arg_parse(&format, &fmt);
 			modify_fmt(&fmt);
 			len = print_args(&va_l, &fmt);
-			(format)++;
-			all_len = all_len + len;
+			if (*format)
+			{
+				(format)++;
+				all_len = all_len + len;
+			}
+			else
+				break;
 		}
 	}
 	va_end(va_l);

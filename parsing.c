@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 15:56:38 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/11 16:13:49 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/13 11:44:11 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	flags_parse(const char **arg, t_format *fmt)
 			fmt->alt_fmt = 1;
 		else if (**arg == '0' && fmt->minus != 1 )
 			fmt->add_0 = 1;
+		else if (**arg == ' ')
+			fmt->sps = 1;
 		else
 			break ;
 		(*arg)++;
@@ -78,8 +80,6 @@ int	arg_parse(const char **arg, t_format *fmt)
 
 	len = 0;
 	(*arg)++;
-	while (**arg == ' ')
-		(*arg)++;
 	flags_parse(arg, fmt);
 	while (**arg == ' ')
 		(*arg)++;

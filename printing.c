@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 10:12:35 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/11 15:47:14 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/13 11:38:09 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,17 @@ int		add_sign(int size, char str[size], t_format *fmt, t_print *p)
 		*str = '+';
 		return (1);
 	}
+	if (fmt->sps && (!p->neg || (fmt->conv == 's' && p->len == 0)))
+	{
+		*str = ' ';
+		return (1);
+	}
 	return (0);
 }
 
 int		add_prefix(int size, char str[size], t_format *fmt)
 {
-	if (fmt->conv == 'p' || fmt->alt_fmt)
+	if (fmt->conv == 'p' || (fmt->alt_fmt && fmt->conv != 'o'))
 	{
 		*(str) = '0';
 		if (fmt->conv == 'x' || fmt->conv == 'p')
@@ -39,7 +44,7 @@ int		add_prefix(int size, char str[size], t_format *fmt)
 			*(str + 1) = 'X';
 		return (2);
 	}
-	if (fmt->conv == 'o')
+	if (fmt->conv == 'o' && fmt->alt_fmt)
 	{
 		*str = '0';
 		return (1);
@@ -50,24 +55,23 @@ int		add_prefix(int size, char str[size], t_format *fmt)
 void	fill_prec(t_print *p, t_format *fmt, char prec[fmt->prec + 1])
 {
 	int		i;
-	int		len;
 
 	i = 0;
-	len = ft_strlen(p->str);
 	ft_bzero(prec, p->size_prec + 1);
 	ft_memset(prec, p->fill_p, p->size_prec);
 	if (fmt->conv == 'X')
 	{
 		while(p->str[i])
 		{
-			p->str[i] = p->str[i] - 32;
+			if (p->str[i] >= 'a' && p->str[i] <= 'z')
+				p->str[i] = p->str[i] - 32;
 			i++;
 		}
 	}
-	if (p->size_prec > len)
+	if (p->size_prec > p->len)
 	{
-		i = p->size_prec - len;
-		ft_memcpy(&prec[i], p->str, len);
+		i = p->size_prec - p->len;
+		ft_memcpy(&prec[i], p->str, p->len);
 	}
 	else
 		ft_memcpy(&prec[0], p->str, p->size_prec);
@@ -95,7 +99,7 @@ int		put_result(int neg, char *str, t_format *fmt)
 	{
 		i = p.size_all - p.size_prec;
 		ft_memcpy(&all_f[i], prec , p.size_prec);
-		if (p.pref)
+		if (p.pref && !fmt->add_0)
 		{
 			if (fmt->conv == 'o')
 				i--;
@@ -104,10 +108,23 @@ int		put_result(int neg, char *str, t_format *fmt)
 			add_prefix(p.size_all, &all_f[i], fmt);
 		}
 		if (fmt->add_0)
-			add_sign(p.size_all, &all_f[0], fmt, &p);
+		{
+			if (fmt->plus || p.neg || fmt->sps)
+			{
+				add_sign(p.size_all, &all_f[0], fmt, &p);
+				add_prefix(p.size_all, &all_f[1], fmt);
+			}
+			else
+				add_prefix(p.size_all, &all_f[0], fmt);
+		}
 		else
 			i = i - (add_sign(p.size_all, &all_f[i - 1], fmt, &p));
 	}
-	ft_putstr(all_f);
+	i = 0;
+	while (i < p.size_all)
+	{
+		write(1, &all_f[i], 1);
+		i++;
+	}
 	return (p.size_all);
 }

@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 10:04:32 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/11 16:44:53 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/13 12:45:04 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ int main()
 {
 //unsigned long long t = 0xDEADBEAFull;
     //unsigned long long int n = 0xFFFFAAAAFFFFull;
-  char *str = "hello";
-  char *str1 = "hello";
+  // char *str = "hello";
+  // char *str1 = "hello";
   // ft_printf("my %-10.4llX\n",t);
   //   printf("or %-10.4llX\n", t); 
-  printf("\nret (%d)\n", ft_printf( "@moulitest: %+d", 0));
-  printf("@moulitest: %.d", 0); 
+  printf("\nret (%d)\n", ft_printf("%#.3o", 1));
+  printf("%#.3o\n", 1); 
     // ft_printf("my %8.3f\n", 1.123456789);
     // printf("or %8.3f\n", 1.123456789);
     // unsigned long long int n = 18446744073709551615ull;
