@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 14:08:42 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/13 14:12:33 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/13 17:25:01 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,11 @@ void init_fmt(t_format *fmt)
     fmt->len = non;
 }
 
-void init_p(int neg, char *str, t_format *fmt, t_print *p)
+void modify_p(int neg, t_format *fmt, t_print *p)
 {
-    p->str = str;
-	p->len = ft_strlen(p->str);
     if (fmt->conv == 'c' && p->len == 0)
         p->len = 1;
-    if (!ft_strcmp(str, "0") && fmt->is_prec && !fmt->prec && !fmt->plus)
+    if (!ft_strcmp(p->str, "0") && fmt->is_prec && !fmt->prec && !fmt->plus)
         p->len = 0;
 	if (fmt->conv == 's' && (fmt->prec > p->len || !fmt->is_prec))
 		p->size_prec = p->len;
@@ -64,23 +62,27 @@ void init_p(int neg, char *str, t_format *fmt, t_print *p)
 		p->size_prec = p->len;
     else
         p->size_prec = fmt->prec;
-
     if (fmt->add_0)
         p->fill_a = '0';
-    else
-        p->fill_a = ' ';
-   
-    if (fmt->conv == 'p' || (fmt->conv == 'o' && fmt->alt_fmt) || (fmt->alt_fmt && *str != '0'))
+    if (fmt->conv == 'p' || (fmt->conv == 'o' && fmt->alt_fmt) || (fmt->alt_fmt && ft_strcmp(p->str, "0")))
         p->pref = 1;
-    else
-        p->pref = 0;
 	p->size_all = get_size(neg, fmt, p);
     if (neg)
         p->neg = 1; 
-    else
-	    p->neg = 0;
     if (fmt->conv == 's')
         p->fill_p = ' ';
-    else
-       p->fill_p = '0'; 
+
+}
+
+void init_p(int neg, char *str, t_format *fmt, t_print *p)
+{
+    p->str = str;
+    p->len = ft_strlen(p->str);
+    p->size_prec = 0;
+    p->size_all = 0;
+    p->fill_a = ' ';
+    p->fill_p = '0';
+    p->pref = 0;
+	p->neg = 0;
+    modify_p(neg, fmt, p);
 }
