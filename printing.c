@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 10:12:35 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/13 11:38:09 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/14 11:37:20 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,24 @@ int		add_sign(int size, char str[size], t_format *fmt, t_print *p)
 	return (0);
 }
 
-int		add_prefix(int size, char str[size], t_format *fmt)
+int		add_prefix(int size, char str[size], t_format *fmt, t_print *p)
 {
-	if (fmt->conv == 'p' || (fmt->alt_fmt && fmt->conv != 'o'))
+	if (p->pref)
 	{
-		*(str) = '0';
-		if (fmt->conv == 'x' || fmt->conv == 'p')
-			*(str + 1) = 'x';
-		if (fmt->conv == 'X')
-			*(str + 1) = 'X';
-		return (2);
-	}
-	if (fmt->conv == 'o' && fmt->alt_fmt)
-	{
-		*str = '0';
-		return (1);
+		if (fmt->conv == 'p' || (fmt->alt_fmt && fmt->conv != 'o'))
+		{
+			*(str) = '0';
+			if (fmt->conv == 'x' || fmt->conv == 'p')
+				*(str + 1) = 'x';
+			if (fmt->conv == 'X')
+				*(str + 1) = 'X';
+			return (2);
+		}
+		if (fmt->conv == 'o' && fmt->alt_fmt)
+		{
+			*str = '0';
+			return (1);
+		}
 	}
 	return (0);
 }
@@ -92,7 +95,7 @@ int		put_result(int neg, char *str, t_format *fmt)
 	if (fmt->minus)
 	{
 		i = i + (add_sign(p.size_all, &all_f[0], fmt, &p));
-		i = i + (add_prefix(p.size_all, &all_f[i], fmt));
+		i = i + (add_prefix(p.size_all, &all_f[i], fmt, &p));
 		ft_memcpy(&all_f[i], prec , p.size_prec);
 	}
 	else
@@ -105,17 +108,17 @@ int		put_result(int neg, char *str, t_format *fmt)
 				i--;
 			else
 				i = i - 2;	
-			add_prefix(p.size_all, &all_f[i], fmt);
+			add_prefix(p.size_all, &all_f[i], fmt, &p);
 		}
 		if (fmt->add_0)
 		{
 			if (fmt->plus || p.neg || fmt->sps)
 			{
 				add_sign(p.size_all, &all_f[0], fmt, &p);
-				add_prefix(p.size_all, &all_f[1], fmt);
+				add_prefix(p.size_all, &all_f[1], fmt, &p);
 			}
 			else
-				add_prefix(p.size_all, &all_f[0], fmt);
+				add_prefix(p.size_all, &all_f[0], fmt, &p);
 		}
 		else
 			i = i - (add_sign(p.size_all, &all_f[i - 1], fmt, &p));

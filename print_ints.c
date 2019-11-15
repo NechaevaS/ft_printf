@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 10:12:35 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/06 15:18:15 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/14 10:36:43 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,19 @@ int	print_uox(va_list *va_l, t_format *fmt)
 int	print_int(va_list *va_l, t_format *fmt)
 {
 	long long int d;
+	char c;
+	short s;
 
 	if (fmt->len == hh)
-		d = va_arg(*va_l, int);
+	{
+		c = (char)va_arg(*va_l, int);
+		d = c;
+	}
 	else if (fmt->len == h)
-		d = va_arg(*va_l, int);
+	{
+		s =(short)va_arg(*va_l, int);
+		d = s;
+	}
 	else if (fmt->len == l)
 		d = va_arg(*va_l, long);
 	else if (fmt->len == ll)

@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 14:08:42 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/13 17:25:45 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/14 17:26:22 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void modify_p(int neg, t_format *fmt, t_print *p)
 {
     if (fmt->conv == 'c' && p->len == 0)
         p->len = 1;
-    if (!ft_strcmp(p->str, "0") && fmt->is_prec && !fmt->prec && !fmt->plus)
+    if (!ft_strcmp(p->str, "0") && fmt->is_prec && !fmt->prec)
         p->len = 0;
 	if (fmt->conv == 's' && (fmt->prec > p->len || !fmt->is_prec))
 		p->size_prec = p->len;
@@ -64,9 +64,19 @@ void modify_p(int neg, t_format *fmt, t_print *p)
         p->size_prec = fmt->prec;
     if (fmt->add_0)
         p->fill_a = '0';
-    if (fmt->conv == 'p' || (fmt->conv == 'o' && fmt->alt_fmt) || (fmt->alt_fmt && ft_strcmp(p->str, "0")))
-        p->pref = 1;
+    if (fmt->conv == 'p')
+         p->pref = 1;
+    if (fmt->alt_fmt)
+    { 
+        if (ft_strcmp(p->str, "0"))
+            p->pref = 1;
+        if (!ft_strcmp(p->str, "0") && fmt->conv == 'o')
+            p->pref = 1;
+        // if (fmt->is_prec && fmt->conv == 'o')
+        //     p->pref = 0;
+    }
 	p->size_all = get_size(neg, fmt, p);
+
     if (neg)
         p->neg = 1; 
     if (fmt->conv == 's')

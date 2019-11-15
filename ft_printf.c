@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:25:43 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/13 17:36:09 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/14 17:25:32 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ void	modify_fmt(t_format *fmt)
 		fmt->is_prec = 1;
 		fmt->prec = 6;
 	}
-	// if (fmt->is_prec && !fmt->prec)
-	// 	fmt->prec = 0;
-	if (fmt->prec && fmt->alt_fmt)
-		fmt->alt_fmt = 0;
+	if (fmt->is_prec && !fmt->prec)
+		fmt->prec = 0;
+	if (!fmt->prec && fmt->conv == 'o')
+		fmt->prec = 1;
+
 	if ((fmt->add_0 && fmt->minus) || (fmt->prec > 0 && fmt->conv != 'f')
 		|| fmt->conv == 's')
 		fmt->add_0 = 0;
