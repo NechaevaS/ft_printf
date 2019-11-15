@@ -1,0 +1,133 @@
+Test 1213 (o_basic_octl_zero_af) : FAILED.
+    First line of code: {return test("this %#o number", 0);}
+      expected output : "this 0 number"
+      your output     : "this 00 number"
+      expected (nonprintable as hex) : "this 0 number"
+      actual   (nonprintable as hex) : "this 00 number"
+
+Test 1217 (o_width_zero_fits_af) : FAILED.
+    First line of code: {return test("%#3o", 0);}
+      expected output : "  0"
+      your output     : " 00"
+      expected (nonprintable as hex) : "  0"
+      actual   (nonprintable as hex) : " 00"
+
+Test 1221 (o_width_zero_fits_lj_af) : FAILED.
+    First line of code: {return test("%#-3o", 0);}
+      expected output : "0  "
+      your output     : "00 "
+      expected (nonprintable as hex) : "0  "
+      actual   (nonprintable as hex) : "00 "
+
+Test 1226 (o_prec_exactfit_pos_af) : FAILED.
+    First line of code: {return test("%#.5o", 5263);}
+      expected output : "012217"
+      your output     : "12217"
+      expected (nonprintable as hex) : "012217"
+      actual   (nonprintable as hex) : "12217"
+
+Test 1227 (o_prec_nofit_pos_af) : FAILED.
+    First line of code: {return test("%#.3o", 938862);}
+      expected output : "03451556"
+      your output     : "3451556"
+      expected (nonprintable as hex) : "03451556"
+      actual   (nonprintable as hex) : "3451556"
+
+Test 1233 (o_prec_width_nofit_fit_pos_af) : FAILED.
+    First line of code: {return test("%#8.3o", 8375);}
+      expected output : "  020267"
+      your output     : "   20267"
+      expected (nonprintable as hex) : "  020267"
+      actual   (nonprintable as hex) : "   20267"
+
+Test 1235 (o_prec_width_nofit_nofit_pos_af) : FAILED.
+    First line of code: {return test("%#3.3o", 6983);}
+      expected output : "015507"
+      your output     : "15507"
+      expected (nonprintable as hex) : "015507"
+      actual   (nonprintable as hex) : "15507"
+
+Test 1238 (o_prec_width_nofit_fit_pos_lj_af) : FAILED.
+    First line of code: {return test("%#-8.3o", 8375);}
+      expected output : "020267  "
+      your output     : "20267   "
+      expected (nonprintable as hex) : "020267  "
+      actual   (nonprintable as hex) : "20267   "
+
+Test 1240 (o_prec_width_nofit_nofit_pos_lj_af) : FAILED.
+    First line of code: {return test("%#-3.3o", 6983);}
+      expected output : "015507"
+      your output     : "15507"
+      expected (nonprintable as hex) : "015507"
+      actual   (nonprintable as hex) : "15507"
+
+Test 1243 (o_prec_width_nf_pos_zp_af) : FAILED.
+    First line of code: {return test("%#08.3o", 8375);}
+      expected output : "  020267"
+      your output     : "   20267"
+      expected (nonprintable as hex) : "  020267"
+      actual   (nonprintable as hex) : "   20267"
+
+Test 1245 (o_prec_width_nn_pos_zp_af) : FAILED.
+    First line of code: {return test("%#03.3o", 6983);}
+      expected output : "015507"
+      your output     : "15507"
+      expected (nonprintable as hex) : "015507"
+      actual   (nonprintable as hex) : "15507"
+
+Test 1248 (o_prec_width_nf_pos_ljzpaf_ignoreflag) : FAILED.
+    First line of code: {return test("%#0-8.3o", 8375);}
+      expected output : "020267  "
+      your output     : "20267   "
+      expected (nonprintable as hex) : "020267  "
+      actual   (nonprintable as hex) : "20267   "
+
+Test 1250 (o_prec_width_nn_pos_ljzpaf_ignoreflag) : FAILED.
+    First line of code: {return test("%#0-3.3o", 6983);}
+      expected output : "015507"
+      your output     : "15507"
+      expected (nonprintable as hex) : "015507"
+      actual   (nonprintable as hex) : "15507"
+
+Test 1278 (o_prec0val0_af) : FAILED.
+    First line of code: {return test("%#.0o", 0);}
+      expected output : "0"
+      your output     : ""
+      expected (nonprintable as hex) : "0"
+      actual   (nonprintable as hex) : ""
+
+Test 1279 (o_prec0val0_af_impl) : FAILED.
+    First line of code: {return test("%#.o", 0);}
+      expected output : "0"
+      your output     : ""
+      expected (nonprintable as hex) : "0"
+      actual   (nonprintable as hex) : ""
+
+Test 1280 (o_prec0val0_waf) : FAILED.
+    First line of code: {return test("%#5.0o", 0);}
+      expected output : "    0"
+      your output     : "     "
+      expected (nonprintable as hex) : "    0"
+      actual   (nonprintable as hex) : "     "
+
+Test 1281 (o_prec0val0_waf_impl) : FAILED.
+    First line of code: {return test("%#5.o", 0);}
+      expected output : "    0"
+      your output     : "     "
+      expected (nonprintable as hex) : "    0"
+      actual   (nonprintable as hex) : "     "
+
+Test 1282 (o_prec0val0_waflj) : FAILED.
+    First line of code: {return test("%#-5.0o", 0);}
+      expected output : "0    "
+      your output     : "     "
+      expected (nonprintable as hex) : "0    "
+      actual   (nonprintable as hex) : "     "
+
+Test 1283 (o_prec0val0_waflj_impl) : FAILED.
+    First line of code: {return test("%#-5.o", 0);}
+      expected output : "0    "
+      your output     : "     "
+      expected (nonprintable as hex) : "0    "
+      actual   (nonprintable as hex) : "     "
+
