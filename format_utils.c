@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 14:08:42 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/14 17:26:22 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/18 14:06:48 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,13 @@ void modify_p(int neg, t_format *fmt, t_print *p)
         if (ft_strcmp(p->str, "0"))
             p->pref = 1;
         if (!ft_strcmp(p->str, "0") && fmt->conv == 'o')
+        {
             p->pref = 1;
-        // if (fmt->is_prec && fmt->conv == 'o')
-        //     p->pref = 0;
+            if (p->size_prec == 1)
+                p->size_prec = 0;
+        }
+        if (fmt->prec > 0 && fmt->conv == 'o' && (fmt->prec > p->len))
+            p->pref = 0;
     }
 	p->size_all = get_size(neg, fmt, p);
 
