@@ -21,8 +21,8 @@ void	modify_fmt(t_format *fmt)
 	}
 	if (fmt->is_prec && !fmt->prec)
 		fmt->prec = 0;
-	if (!fmt->prec && fmt->conv == 'o')
-		fmt->prec = 1;
+	// if (!fmt->prec && fmt->conv == 'o')
+	// 	fmt->prec = 1;
 
 	if ((fmt->add_0 && fmt->minus) || (fmt->prec > 0 && fmt->conv != 'f')
 		|| fmt->conv == 's')
@@ -68,7 +68,7 @@ int	print_args(va_list *va_l, t_format *fmt)
 			return (print_char('%', fmt));
 		if (fmt->conv == 'f')
 		{
-			f = va_arg(*va_l,  long double);
+			f = va_arg(*va_l, double);
 			return (print_double(f, fmt));
 		}
 		if (fmt->conv == 'p')

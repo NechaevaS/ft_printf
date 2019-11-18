@@ -26,10 +26,10 @@ int main()
   // printf("%#.o\n", 0);
   //   printf("\nret (%d)\n", ft_printf("%#.5o", 5263));
   // printf("%#.5o\n", 5263); 
-    printf("\nret (%d)\n", ft_printf("%#.5o", 21));
-  printf("%#.5o\n", 21); 
-    // ft_printf("my %8.3f\n", 1.123456789);
-    // printf("or %8.3f\n", 1.123456789);
+  //   printf("\nret (%d)\n", ft_printf("%#.5o", 21));
+  // printf("%#.5o\n", 21); 
+    ft_printf("my %8.1f\n", -9.98);
+    printf("or %8.1f\n", -9.98);
     // unsigned long long int n = 18446744073709551615ull;
     // ft_putstr(ft_itoaull(n)); 
     return 0; 

@@ -81,42 +81,128 @@ int	print_int(va_list *va_l, t_format *fmt)
 	return (print_ll(d, fmt));
 }
 
-int	print_double(long double f, t_format *fmt)
+long double pow_10_help(int pow)
 {
-	char		str[21];
-	char		*str1;
-	char		*str2;
-	int			pos;
-	int			n;
-	long double	rem;
-	int			len;
+	int n;
+
+	if (pow == 0)
+		return (1);
+	if (pow == 1)
+		return (10);
+	if (pow == 2)
+		return (100);
+	if (pow == 3)
+		return (1000);
+	n = pow / 2;
+	return (pow_10_help(n) * pow_10_help(pow - n));
+}
+
+long double pow_10(int pow)
+{
+	if (pow >= 0)
+		return (pow_10_help(pow));
+
+	return (1 / pow_10_help(-pow));
+}
+
+int find_pow_10(long double x)
+{
+	int i;
+
+	i = 0;
+	while(pow_10(i + 1) < x)
+		i++;
+	return (i);
+}
+
+void ld_to_str(char *str, long double x, int prec)
+{
+	long double pow;
+	int n;
+	int t;
+	int pos;
 
 	pos = 0;
-	n = (int)f;
-	rem = f - n;
-	while (n >= 1)
+
+	n = find_pow_10(x);
+	while (n >= -prec)
 	{
-		pos++;
-		n = n / 10;
+		pow = pow_10(n);
+		t = x / pow;
+		if (n == -1)
+			str[pos++] = '.';
+		str[pos++] = '0' + t;
+		x = x - t * pow;
+		n--;
 	}
-	n = (int)f;
-	str1 = ft_itoa(n);
-	len = 0;
-	while(len <= fmt->prec)
-	{
-		rem = rem * 10;
-		len++;
-	}
-	str2 = ft_itoa(rem);
-	if (str2[fmt->prec] >= '5')
-		str2[fmt->prec - 1]++;
-	ft_memset(str, 0, 21);
-	ft_memcpy(str, str1, ft_strlen(str1));
-	if (fmt->is_prec && fmt->prec)
-	{
-		str[pos] = '.';
-		pos++;
-	}
-	ft_memcpy(&str[pos], str2, fmt->prec);
-	return (put_result(0, str, fmt));	
+
 }
+
+int	print_double(long double f, t_format *fmt)
+{
+	char str[124 * 16];
+	int pos;
+	int car;
+	int t;
+
+	ft_memset(str, 0, 124 *16);
+	ld_to_str(str + 2, ((f<0)?-f:f), fmt->prec + 1);
+	pos = ft_strlen(str + 2) + 2 - 1;
+	car = (str[pos] >= '5')?1:0;
+	str[pos--] = 0;
+	while (car && pos > 2)
+	{
+		if (str[pos] == '.')
+			pos--;
+		t = str[pos] - '0' + car;
+		car = t / 10;
+		str[pos--] = '0' + t % 10;
+	}
+	if (car)
+		str[pos] = car + '0';
+	pos = (pos < 2)?pos:2;
+	if (f < 0)
+		str[--pos] = '-';
+	return (put_result(0, str+pos , fmt));
+
+}
+
+// int	print_double(long double f, t_format *fmt)
+// {
+// 	char		str[21];
+// 	char		*str1;
+// 	char		*str2;
+// 	int			pos;
+// 	int			n;
+// 	long double	rem;
+// 	int			len;
+
+// 	pos = 0;
+// 	n = (int)f;
+// 	rem = f - n;
+// 	while (n >= 1)
+// 	{
+// 		pos++;
+// 		n = n / 10;
+// 	}
+// 	n = (int)f;
+// 	str1 = ft_itoa(n);
+// 	len = 0;
+// 	while(len <= fmt->prec)
+// 	{
+// 		rem = rem * 10;
+// 		len++;
+// 	}
+// 	str2 = ft_itoa(rem);
+// 	if (str2[fmt->prec] >= '5')
+// 		str2[fmt->prec - 1]++;
+// 	ft_memset(str, 0, 21);
+// 	ft_memcpy(str, str1, ft_strlen(str1));
+// 	if (fmt->is_prec && fmt->prec)
+// 	{
+// 		str[pos] = '.';
+// 		pos++;
+// 	}
+// 	ft_memcpy(&str[pos], str2, fmt->prec);
+// 	return (put_result(0, str, fmt));	
+// }
