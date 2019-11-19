@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:25:43 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/18 14:10:08 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/18 17:06:39 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,8 @@ void	modify_fmt(t_format *fmt)
 		fmt->sps = 0;
 }
 
-int	print_args(va_list *va_l, t_format *fmt)
+int		print_args(va_list *va_l, t_format *fmt)
 {
-	char	c;
-	char	*s;
-	long double	f;
-	void	*p;
-
 	if (fmt->conv != '0')
 	{
 		if (fmt->conv == 'd' || fmt->conv == 'i')
@@ -46,40 +41,31 @@ int	print_args(va_list *va_l, t_format *fmt)
 			|| fmt->conv == 'X')
 			return (print_uox(va_l, fmt));
 		if (fmt->conv == 'c')
-		{
-			c = va_arg(*va_l, int);
-			return (print_char(c, fmt));
-		}
+			return (print_char((char)va_arg(*va_l, int), fmt));
 		if (fmt->conv == 's')
-		{
-			s = va_arg(*va_l, char *);
-			return (print_str(s, fmt));
-		}
+			return (print_str((char *)va_arg(*va_l, char *), fmt));
 		if (fmt->conv == '%')
 			return (print_char('%', fmt));
 		if (fmt->conv == 'f')
 		{
-			f = va_arg(*va_l, double);
-			return (print_double(f, fmt));
+			if (fmt->len == L)
+				return (print_double(va_arg(*va_l, long double), fmt));
+			else
+				return (print_double((long double)va_arg(*va_l, double), fmt));
 		}
 		if (fmt->conv == 'p')
-		{
-			p = va_arg(*va_l, void *);
-			return (print_ptr(p, fmt));
-		}
+			return (print_ptr((void *)va_arg(*va_l, void *), fmt));
 	}
 	return (0);
 }
 
-int	ft_printf(const char *format, ...)
+int		ft_printf(const char *format, ...)
 {
 	va_list		va_l;
 	int			len;
-	int			all_len;
 	t_format	fmt;
 
-
-	all_len = 0;
+	len = 0;
 	va_start(va_l, format);
 	while (*format)
 	{
@@ -87,23 +73,17 @@ int	ft_printf(const char *format, ...)
 		if (*format != '%')
 		{
 			ft_putchar(*format);
-			all_len++;
+			len++;
 			format++;
 		}
 		else
 		{
 			arg_parse(&format, &fmt);
-			modify_fmt(&fmt);
-			len = print_args(&va_l, &fmt);
+			len = len + print_args(&va_l, &fmt);
 			if (*format)
-			{
 				(format)++;
-				all_len = all_len + len;
-			}
-			else
-				break;
 		}
 	}
 	va_end(va_l);
-	return (all_len);
+	return (len);
 }

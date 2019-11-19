@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 10:04:32 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/18 14:02:43 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/18 17:06:23 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ int main()
   // printf("%#.5o\n", 5263); 
   //   printf("\nret (%d)\n", ft_printf("%#.5o", 21));
   // printf("%#.5o\n", 21);
-    ft_printf("my %#3o\n", 0);
-    printf("or %#3o\n", 0);
-    // ft_printf("my %#x %#.o\n", 0, 0);
-    // printf("or %#x %#.o\n", 0, 0);
+    // ft_printf("my %u, %hu, %hhu\n", 0, (unsigned short)0, (unsigned char)255);
+    // printf("or %u, %hu, %hhu\n", 0, (unsigned short)0, (unsigned char)255 );
+    ft_printf("my %+f\n", -3.9999999);
+    printf("or %+f\n", -3.9999999);
     // ft_printf("my %#x %#o\n", 1, 1);
     // printf("or %#x %#o\n", 1, 1);
     // ft_printf("my %#x %#.o\n", 1, 1);

@@ -6,7 +6,7 @@
 #    By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/07 14:47:44 by snechaev          #+#    #+#              #
-#    Updated: 2019/11/08 16:28:01 by snechaev         ###   ########.fr        #
+#    Updated: 2019/11/18 14:44:44 by snechaev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ OBJS = ft_printf.o\
 			parsing.o\
 			format_utils.o\
 			print_sc.o\
+			print_double.o\
 			printing.o\
 			print_ints.o\
 			libft/libft.a\

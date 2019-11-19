@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 14:37:55 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/04 16:33:04 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/18 14:42:38 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int					get_next_line(const int fd, char **line);
 int					ft_atoi_base(const char *str, int str_base);
 double				ft_abs(double x);
 t_list				*ft_sort_list(t_list *lst, int (*cmp)(void *, void *));
-char				*ft_ulltoa_base(char *s, unsigned long long n, unsigned base);
+char				*ft_ulltoa_base(char *s, unsigned long long n,
+					unsigned base);
 
 #endif

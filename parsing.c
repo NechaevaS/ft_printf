@@ -6,7 +6,7 @@
 /*   By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 15:56:38 by snechaev          #+#    #+#             */
-/*   Updated: 2019/11/13 17:38:29 by snechaev         ###   ########.fr       */
+/*   Updated: 2019/11/18 15:18:54 by snechaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	flags_parse(const char **arg, t_format *fmt)
 			fmt->plus = 1;
 		else if (**arg == '#')
 			fmt->alt_fmt = 1;
-		else if (**arg == '0'/* && fmt->minus != 1*/)
+		else if (**arg == '0' && fmt->minus != 1)
 			fmt->add_0 = 1;
 		else if (**arg == ' ')
 			fmt->sps = 1;
@@ -57,7 +57,6 @@ void	prec_parse(const char **arg, t_format *fmt)
 
 void	mod_l_parse(const char **arg, t_format *fmt)
 {
-
 	if (**arg == 'h' && *(*arg + 1) == 'h')
 		fmt->len = hh;
 	else if (**arg == 'h')
@@ -74,7 +73,7 @@ void	mod_l_parse(const char **arg, t_format *fmt)
 		(*arg) += 1;
 }
 
-int	arg_parse(const char **arg, t_format *fmt)
+int		arg_parse(const char **arg, t_format *fmt)
 {
 	int			len;
 
@@ -93,5 +92,6 @@ int	arg_parse(const char **arg, t_format *fmt)
 	while (**arg == ' ')
 		(*arg)++;
 	fmt->conv = **arg;
+	modify_fmt(fmt);
 	return (len);
 }
