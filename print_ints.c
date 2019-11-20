@@ -14,11 +14,11 @@
 
 int		print_ull(unsigned long long d, t_format *fmt)
 {
-	char		str[21];
+	char		str[24];
 	unsigned	base;
 
 	base = 10;
-	ft_memset(str, 0, 21);
+	ft_memset(str, 0, 24);
 	if (fmt->conv == 'o')
 		base = 8;
 	if (fmt->conv == 'x' || fmt->conv == 'X' || fmt->conv == 'p')

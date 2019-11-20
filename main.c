@@ -36,8 +36,8 @@ int main()
     // printf("or %- 5f\n", 7.123); fflush(stdout);
     // ft_printf("my %- 5.2f\n", 7.123);
     // printf("or %- 5.2f\n", 7.123); fflush(stdout);
-    ft_printf("my %30p\n", NULL);
-    printf("or %30p\n", NULL); fflush(stdout);
+    ft_printf("my %llo\n", 9223372036854775807ull, 9223372036854775807ull);
+    printf("or %llo\n", 9223372036854775807ull, 9223372036854775807ull); fflush(stdout);
     // ft_printf("my % s\n", "000");
     // printf("or % s\n", "000");
     // ft_printf("my %#x %#o\n", 1, 1);

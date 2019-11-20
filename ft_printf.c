@@ -47,7 +47,7 @@ int		print_args(va_list *va_l, t_format *fmt)
 		if (fmt->conv == 's')
 			return (print_str((char *)va_arg(*va_l, char *), fmt));
 		if (fmt->conv == '%')
-			return (print_char('%', fmt));
+			return (write(1, "%", 1));
 		if (fmt->conv == 'f')
 		{
 			if (fmt->len == L)
