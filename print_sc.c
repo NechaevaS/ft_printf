@@ -18,7 +18,13 @@ int	print_str(char *s, t_format *fmt)
 
 	s0 = "(null)";
 	if (!s)
-		s = s0;
+	{
+		if (!fmt->is_prec || fmt->prec >= 6)
+			s = s0;
+		else
+			s = "";
+	}
+
 	return (put_result(0, s, fmt));
 }
 
@@ -35,6 +41,8 @@ int	print_char(char c, t_format *fmt)
 
 int	print_ptr(void *p, t_format *fmt)
 {
+	if (!p)
+		return (put_result(0, "(nil)", fmt));
 	fmt->add_0 = 0;
 	fmt->alt_fmt = 0;
 	fmt->plus = 0;

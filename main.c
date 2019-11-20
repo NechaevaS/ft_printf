@@ -12,6 +12,7 @@
 
 #include "ft_printf.h"
 #include<stdio.h> 
+#include <stdlib.h>
   
   
 int main()
@@ -19,7 +20,7 @@ int main()
   
 //unsigned long long t = 0xDEADBEAFull;
     //unsigned long long int n = 0xFFFFAAAAFFFFull;
-  // char *str = "hello";
+ //  char *str = NULL;
   // char *str1 = "hello";
   // ft_printf("my %-10.4llX\n",t);
   //   printf("or %-10.4llX\n", t); 
@@ -31,8 +32,14 @@ int main()
   // printf("%#.5o\n", 21);
     // ft_printf("my %u, %hu, %hhu\n", 0, (unsigned short)0, (unsigned char)255);
     // printf("or %u, %hu, %hhu\n", 0, (unsigned short)0, (unsigned char)255 );
-    ft_printf("my %+f\n", -3.9999999);
-    printf("or %+f\n", -3.9999999);
+    // ft_printf("my %- 5f\n", 7.123); 
+    // printf("or %- 5f\n", 7.123); fflush(stdout);
+    // ft_printf("my %- 5.2f\n", 7.123);
+    // printf("or %- 5.2f\n", 7.123); fflush(stdout);
+    ft_printf("my %30p\n", NULL);
+    printf("or %30p\n", NULL); fflush(stdout);
+    // ft_printf("my % s\n", "000");
+    // printf("or % s\n", "000");
     // ft_printf("my %#x %#o\n", 1, 1);
     // printf("or %#x %#o\n", 1, 1);
     // ft_printf("my %#x %#.o\n", 1, 1);

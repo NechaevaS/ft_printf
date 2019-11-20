@@ -14,6 +14,8 @@
 
 void	modify_fmt(t_format *fmt)
 {
+	if (fmt->conv == 'i')
+		fmt->conv = 'd';
 	if (fmt->conv == 'f' && !fmt->is_prec)
 	{
 		fmt->is_prec = 1;
@@ -27,7 +29,7 @@ void	modify_fmt(t_format *fmt)
 	if ((fmt->conv != 'f' && fmt->conv != 'x' && fmt->conv != 'X'
 		&& fmt->conv != 'o') && fmt->alt_fmt)
 		fmt->alt_fmt = 0;
-	if ((fmt->sps && fmt->conv != 'd' && fmt->conv != 's') || fmt->plus)
+	if (fmt->sps && fmt->plus)
 		fmt->sps = 0;
 }
 

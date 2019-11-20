@@ -20,7 +20,7 @@
 
 typedef struct
 {
-	intalt_fmt;
+	int			alt_fmt;
 	int			plus;
 	int			minus;
 	int			sps;

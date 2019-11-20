@@ -89,5 +89,12 @@ int			print_double(long double f, t_format *fmt)
 	if (car)
 		str[pos] = car + '0';
 	pos = (pos <= 2) ? pos + 1 : 2;
+	t = ft_strlen(str + pos);
+	if (!fmt->alt_fmt && !fmt->prec)
+	{
+		if (str[pos + t -1] == '.')
+			str[pos + t -1] = 0;
+	}
+
 	return (put_result(f < 0, str + pos, fmt));
 }

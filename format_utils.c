@@ -18,7 +18,7 @@ int		get_size(int neg, t_format *fmt, t_print *p)
 	int len1;
 
 	len1 = p->size_prec;
-	if (neg || fmt->plus)
+	if ((fmt->conv == 'd' || fmt->conv == 'f') && (neg || fmt->plus || fmt->sps))
 		len1++;
 	if (p->pref)
 	{
@@ -27,8 +27,6 @@ int		get_size(int neg, t_format *fmt, t_print *p)
 		else
 			len1 = len1 + 1;
 	}
-	if (fmt->sps && !neg)
-		len1++;
 	if (len1 > fmt->w_fild)
 		max = len1;
 	else
@@ -52,7 +50,7 @@ void	init_fmt(t_format *fmt)
 
 void	mod_p_altf(t_format *fmt, t_print *p)
 {
-	if (ft_strcmp(p->str, "0"))
+	if (ft_strcmp(p->str, "0") && fmt->conv != 'f')
 		p->pref = 1;
 	if (!ft_strcmp(p->str, "0") && fmt->conv == 'o')
 	{
@@ -70,7 +68,7 @@ void	modify_p(int neg, t_format *fmt, t_print *p)
 		fmt->plus = 0;
 	if (fmt->conv == 'c' && p->len == 0)
 		p->len = 1;
-	if (!ft_strcmp(p->str, "0") && fmt->is_prec && !fmt->prec)
+	if ((fmt->conv == 'd' || fmt->conv == 'o' || fmt->conv == 'X' || fmt->conv == 'x' || fmt->conv == 'u') && !ft_strcmp(p->str, "0") && fmt->is_prec && !fmt->prec)
 		p->len = 0;
 	if ((fmt->conv == 's' && (fmt->prec > p->len || !fmt->is_prec)))
 		p->size_prec = p->len;
@@ -80,7 +78,7 @@ void	modify_p(int neg, t_format *fmt, t_print *p)
 		p->size_prec = fmt->prec;
 	if (fmt->add_0)
 		p->fill_a = '0';
-	if (fmt->conv == 'p')
+	if (fmt->conv == 'p' && ft_strcmp(p->str, "(nil)"))
 		p->pref = 1;
 	if (fmt->alt_fmt)
 		mod_p_altf(fmt, p);

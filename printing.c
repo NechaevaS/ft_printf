@@ -15,17 +15,19 @@
 
 int		add_sign(int size, char str[size], t_format *fmt, t_print *p)
 {
+	if (fmt->conv != 'd' && fmt->conv != 'f')
+		return (0);
 	if (p->neg)
 	{
 		*str = '-';
 		return (1);
 	}
-	if (!p->neg && fmt->plus)
+	if (fmt->plus)
 	{
 		*str = '+';
 		return (1);
 	}
-	if (fmt->sps && (!p->neg || (fmt->conv == 's' && p->len == 0)))
+	if (fmt->sps)
 	{
 		*str = ' ';
 		return (1);
@@ -56,10 +58,12 @@ int		add_prefix(int size, char str[size], t_format *fmt, t_print *p)
 	return (0);
 }
 
-void	fill_prec(t_print *p, t_format *fmt, char prec[fmt->prec + 1])
+char	*fill_prec(t_print *p, t_format *fmt)
 {
 	int	i;
+	char *prec;
 
+	prec = (char *)malloc(sizeof(char) * p->size_prec + 1);
 	i = 0;
 	ft_bzero(prec, p->size_prec + 1);
 	ft_memset(prec, p->fill_p, p->size_prec);
@@ -79,10 +83,10 @@ void	fill_prec(t_print *p, t_format *fmt, char prec[fmt->prec + 1])
 	}
 	else
 		ft_memcpy(&prec[0], p->str, p->size_prec);
+	return (prec);
 }
 
-void	print_def(t_format *fmt, t_print *p, char all_f[p->size_all + 1],
-	char prec[p->size_prec + 1])
+void	print_def(t_format *fmt, t_print *p, char *all_f, char *prec)
 {
 	int i;
 
@@ -110,16 +114,30 @@ void	print_def(t_format *fmt, t_print *p, char all_f[p->size_all + 1],
 		i = i - (add_sign(p->size_all, &all_f[i - 1], fmt, p));
 }
 
+void	put_all_f(char *all_f, t_print *p)
+{
+	int i;
+	
+	i = 0;
+	while (i < p->size_all)
+	{
+		write(1, &all_f[i], 1);
+		i++;
+	}
+//	free(all_f);
+}
+
 int		put_result(int neg, char *str, t_format *fmt)
 {
 	t_print	p;
 	int		i;
+	char	*prec;
+	char	*all_f;
 
 	init_p(neg, str, fmt, &p);
-	char	prec[p.size_prec + 1];
-	fill_prec(&p, fmt, prec);
-	char	all_f[p.size_all + 1];
-	all_f[p.size_all] = '\0';
+	prec = fill_prec(&p, fmt);
+	all_f = (char *)malloc(sizeof(char) * p.size_all + 1);
+	ft_memset(all_f, 0, p.size_all + 1);
 	ft_memset(all_f, p.fill_a, p.size_all);
 	i = 0;
 	if (fmt->minus)
@@ -130,11 +148,7 @@ int		put_result(int neg, char *str, t_format *fmt)
 	}
 	else
 		print_def(fmt, &p, all_f, prec);
-	i = 0;
-	while (i < p.size_all)
-	{
-		write(1, &all_f[i], 1);
-		i++;
-	}
+	put_all_f(all_f, &p);
+//	free(prec);
 	return (p.size_all);
 }
